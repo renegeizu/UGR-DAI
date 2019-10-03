@@ -6,6 +6,7 @@ WORKDIR /ejer
 ENV FLASK_APP app.py
 ENV FLASK_RUN_HOST 0.0.0.0
 ENV FLASK_ENV development
+ENV FLASK_DEBUG 1
 
 RUN apt-get install libjpeg-dev \
                        zlib1g-dev \

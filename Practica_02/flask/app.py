@@ -7,3 +7,6 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
+if __name__ == '__main__':
+	# Ayuda para depuracion | Mostrar Errores
+	app.run(debug = True)
