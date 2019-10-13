@@ -1,5 +1,7 @@
 #./flask/app.py
 
+import time
+from PIL import Image
 from flask import Flask
 from flask import request
 
@@ -84,20 +86,34 @@ def content_imgbin():
 		"x1": -2.5,
 		"x2": 1.0,
 		"y1": 1.0,
-		"y2": -1
+		"y2": -1,
+		"imgx": 400,
+		"maxIt": 255,
+		"nombre": "sin_titulo.ppm"
 	}
-	for arg in args.keys():
+	for arg in arguments.keys():
 		if request.args.get(arg, ""):
 			arguments[arg] = float(request.args.get(arg, ""))
+	imgy = int(abs (arguments["y2"] - arguments["y1"]) * arguments["imgx"] / abs(arguments["x2"] - arguments["x1"]));
+	im = Image.new('RGB', (arguments["imgx"], imgy), color = 'black')
+	for y in range(imgy):
+		zy = y * (arguments["y2"] - arguments["y1"]) / (imgy - 1)  + arguments["y1"]   
+		for x in range(arguments["imgx"]):
+			zx = x * (arguments["x2"] - arguments["x1"]) / (arguments["imgx"] - 1)  + arguments["x1"]
+			z = zx + zy * 1j
+			c = z
+		for i in range(arguments["maxIt"]):
+			if abs(z) > 2.0:
+				break 
+			z = z * z + c
+		i = arguments["maxIt"] - i
+		col = (i%10*25, i%16*16, i%8*32)  
+		im.putpixel((x, y), col)
+	im.save("/static/" + arguments["nombre"]);
+	return	'''
+					<img src="/static/%s"/>
+				''' % arguments["nombre"]
 
-
-
-
-	x1 = request.args.get('x1')
-	x2 = request.args.get('x2')
-	y1 = request.args.get('y1')
-	y2 = request.args.get('y2')
-	return 'Bye, World!'
 
 # Creando Imágenes Dinámicas [Vectoriales]
 @app.route('/imgvec')
