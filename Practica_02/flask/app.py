@@ -138,7 +138,7 @@ def content_imgbin():
 		"y2": 1.5,
 		"imgx": 400,
 		"maxIt": 255,
-		"nombre": "sin_titulo"
+		"nombre": "mandelbrot"
 	}
 	for arg in arguments.keys():
 		if request.args.get(arg, ""):
