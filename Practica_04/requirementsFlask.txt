@@ -1,5 +1,0 @@
-# requirementFlask.txt
-
-Pillow
-Flask
-pymongo
