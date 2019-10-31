@@ -1,6 +1,8 @@
 #./flask/app.py
 
 import time
+import os
+
 from PIL import Image
 from flask import Flask
 from flask import request
@@ -33,7 +35,16 @@ def pintaMandelbrot(x1, y1, x2, y2, ancho, iteraciones, nombreFicheroPPM):
 			i = maxIt - i
 			col = (i%10*25, i%16*16, i%8*32)  
 			im.putpixel((x, y), col)
-	im.save("static/" + nombreFicheroPPM + ".png");
+	im.save("static/" + nombreFicheroPPM + ".png")
+
+# Limpieza de Cache
+def clean_cache(cache_dir,timespan):
+    limit = time.time() - timespan
+    for f in os.listdir(cache_dir):
+        file_path = os.path.join(cache_dir,f)
+        if os.path.getmtime(file_path) < limit:
+            os.remove(file_path)
+            print("Removing %s"%file_path)
 
 #################
 # Funciones Web #
@@ -43,90 +54,166 @@ def pintaMandelbrot(x1, y1, x2, y2, ancho, iteraciones, nombreFicheroPPM):
 @app.route('/')
 def hello_world():
 	return	'''
-					<html>
-						<head>
-							<title>Practica 02</title>
-						</head>
-						<body>
-							<h1>Hello, World!</h1>
-							<ul>
-								<li><a href="#">Ejercicio 01 (Un Hola Mundo! en Flask)</a></li>
-								<li><a href="/static">Ejercicio 02 (Sirviendo Contenidos Estaticos)</a></li>
-								<li><a href="/url/Fairy_Tail">Ejercicio 03 (Manejo de URLs)</a></li>
-								<li><a href="/imgbin">Ejercicio 04 (Creando Imagenes Dinamicas [Binarias])</a></li>
-								<li><a href="/imgvec">Ejercicio 04 (Creando Imagenes Dinamicas [Vectoriales])</a></li>
-								<li><a href="/stop">Error 404</a></li>
-							</ul>
-						</body>
-					</html>
-				'''
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body>
+						<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+							<a class="navbar-brand" href="#">Practica 02</a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navbarNav">
+								<ul class="navbar-nav">
+									<li class="nav-item active">
+										<a class="nav-link" title="Un Hola Mundo! en Flask" href="#">Ejercicio 01<span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" title="Sirviendo Contenidos Estaticos" href="/static">Ejercicio 02</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" title="Manejo de URLs" href="/url/Fairy_Tail">Ejercicio 03</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" title="Creando Imagenes Dinamicas [Binarias]" href="/imgbin">Ejercicio 04</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" title="Creando Imagenes Dinamicas [Vectoriales]" href="/imgvec">Ejercicio 04</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" title="Ejemplo de Error" href="/stop">Error 404</a>
+									</li>
+								</ul>
+							</div>
+						</nav>
+						<div class="container">
+							<div class="abs-center">
+								<br/>
+								<h1 class="text-primary">Hello, World!</h1>
+							</div>
+						</div>
+					</body>
+				</html>
+			'''
 
 # Sirviendo contenidos estáticos (imágenes, hojas de estilo, etc)
 @app.route('/static')
 def content_static():
 	return	'''
-					<html>
-						<head>
-							<title>Practica 02</title>
-							<link href="/static/style.css" rel="stylesheet" type="text/css" />
-						</head>
-						<body>
-							<header id="pageHeader"><center><h3>Gray Fullbuster</h3></center></header>
-							<article id="mainArticle"><center><img src="/static/img.jpg"/></center></article>
-							<nav id="mainNav">
-								<strong>Fairy Tail</strong>
-								<ul>
-									<li>Natsu Dragneel</li>
-									<li>Gray Fullbuster</li>
-									<li>Lucy Heartfilia</li>
-									<li>Erza Scarlet</li>
-									<li>Wendy Marvell</li>
-									<li>Gajeel Redfox</li>
-								</ul>
-							</nav>
-						</body>
-					</html>
-				'''
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link href="/static/style.css" rel="stylesheet" type="text/css" />
+						<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body>
+						<header id="pageHeader"><center><h3>Gray Fullbuster</h3></center></header>
+						<article id="mainArticle"><center><img src="/static/img.jpg"/></center></article>
+						<nav id="mainNav">
+							<strong>Fairy Tail</strong>
+							<ul>
+								<li>Natsu Dragneel</li>
+								<li>Gray Fullbuster</li>
+								<li>Lucy Heartfilia</li>
+								<li>Erza Scarlet</li>
+								<li>Wendy Marvell</li>
+								<li>Gajeel Redfox</li>
+							</ul>
+						</nav>
+					</body>
+				</html>
+			'''
 
 # Manejo de URLs
 @app.route('/url/<dato>/')
 def content_url(dato):
 	return	'''
-					<html>
-						<head>
-							<title>Practica 02</title>
-							<link href="/static/style.css" rel="stylesheet" type="text/css" />
-						</head>
-						<body>
-							<header id="pageHeader"><center><h3>Gray Fullbuster</h3></center></header>
-							<article id="mainArticle"><center><img src="/static/img.jpg"/></center></article>
-							<nav id="mainNav">
-								<strong>Fairy Tail</strong>
-								<ul>
-									<li>Natsu Dragneel</li>
-									<li>Gray Fullbuster</li>
-									<li>Lucy Heartfilia</li>
-									<li>Erza Scarlet</li>
-									<li>Wendy Marvell</li>
-									<li>Gajeel Redfox</li>
-								</ul>
-							</nav>
-							<footer id="pageFooter"><strong>Informacion Proporcionada:</strong> %s</footer>
-						</body>
-					</html>
-				''' % (dato)
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link href="/static/style.css" rel="stylesheet" type="text/css" />
+						<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body>
+						<header id="pageHeader"><center><h3>Gray Fullbuster</h3></center></header>
+						<article id="mainArticle"><center><img src="/static/img.jpg"/></center></article>
+						<nav id="mainNav">
+							<strong>Fairy Tail</strong>
+							<ul>
+								<li>Natsu Dragneel</li>
+								<li>Gray Fullbuster</li>
+								<li>Lucy Heartfilia</li>
+								<li>Erza Scarlet</li>
+								<li>Wendy Marvell</li>
+								<li>Gajeel Redfox</li>
+							</ul>
+						</nav>
+						<footer id="pageFooter"><strong>Informacion Proporcionada:</strong> %s</footer>
+					</body>
+				</html>
+			''' % (dato)
 
 # Error 404
 @app.errorhandler(404)
 def error_404(error):
 	return	'''
-					<html>
-						<head>
-							<title>Practica 02</title>
-						</head>
-						<body>%s</body>
-					</html>
-				''' % (error)
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link href="/static/error-style.css" rel="stylesheet" type="text/css" />
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+						<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+						<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body class="error-body">
+						<div class="container">
+    						<div class="row">
+        						<div class="col-md-12">
+            						<div class="error-template">
+                						<h1>Oops!</h1>
+                						<h2>404 Not Found</h2>
+                						<div class="error-details">Sorry, an error has occured, Requested page not found!</div>
+                						<div class="error-actions">%s</div>
+            						</div>
+        						</div>
+    						</div>
+						</div>
+					</body>
+				</html>
+			''' % (error)
 
 # Creando Imágenes Dinámicas [Binarias]
 @app.route('/imgbin')
@@ -145,13 +232,20 @@ def content_imgbin():
 			arguments[arg] = float(request.args.get(arg, ""))
 	pintaMandelbrot(arguments["x1"], arguments["y1"], arguments["x2"], arguments["y2"], arguments["imgx"], arguments["maxIt"], arguments["nombre"])
 	return	'''
-					<html>
-						<head>
-							<title>Practica 02</title>
-						</head>
-						<body><img src="/static/%s.png"/></body>
-					</html>
-				''' % arguments["nombre"]
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body><img src="/static/%s.png"/></body>
+				</html>
+			''' % arguments["nombre"]
 
 
 # Creando Imágenes Dinámicas [Vectoriales]
