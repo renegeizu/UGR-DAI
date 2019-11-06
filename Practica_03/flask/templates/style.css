@@ -18,6 +18,14 @@ header, footer, article, nav, div {
     background: yellowgreen;
 }
 
+header {
+    display: inline;
+}
+
+li {
+    display: inline;
+}
+
 #pageHeader {
     grid-area: header;
 }

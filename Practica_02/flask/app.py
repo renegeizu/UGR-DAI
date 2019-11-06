@@ -2,6 +2,7 @@
 
 import time
 import os
+import random
 
 from PIL import Image
 from flask import Flask
@@ -38,13 +39,33 @@ def pintaMandelbrot(x1, y1, x2, y2, ancho, iteraciones, nombreFicheroPPM):
 	im.save("static/" + nombreFicheroPPM + ".png")
 
 # Limpieza de Cache
-def clean_cache(cache_dir,timespan):
+def clean_cache(cache_dir, timespan):
     limit = time.time() - timespan
-    for f in os.listdir(cache_dir):
-        file_path = os.path.join(cache_dir,f)
-        if os.path.getmtime(file_path) < limit:
-            os.remove(file_path)
+    for f in os.listdir(cache_dir): # Lista de Entradas de un Directorio
+        file_path = os.path.join(cache_dir, f) #  Creo la Ruta del Archivo
+        if os.path.getmtime(file_path) < limit: # Compruebo la Fecha de Modificacion
+            os.remove(file_path) # Borro el Archivo
             print("Removing %s"%file_path)
+
+def color():
+	list = ['red', 'green', 'blue', 'yellow', 'orange', 'gray', 'black', 'white']
+	return random.sample(list, 1)[0]
+
+def rect():
+    return 	"""
+    			<rect x="{}", y="{}", height="{}", width="{}" fill="{}" />
+    		""".format(random.uniform(0, 800), random.uniform(0, 600), random.uniform(0, 600), random.uniform(0, 800), color())
+
+def circle():
+    return 	"""
+    			<circle r="{}", cx="{}", cy="{}", fill="{}" />
+    		""".format(random.uniform(0, 120), random.uniform(0, 800), random.uniform(0, 600), color())
+
+def generateSVG():
+	list = [rect, circle]
+	return 	"""
+				<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+			""" + random.sample(list, 1)[0]() + """</svg>"""
 
 #################
 # Funciones Web #
@@ -251,7 +272,24 @@ def content_imgbin():
 # Creando Imágenes Dinámicas [Vectoriales]
 @app.route('/imgvec')
 def content_imgvec():
-	return 'Bye, World!'
+	img_svg = generateSVG()
+	with open("image.svg", "w") as f:
+		f.write(img_svg)
+	return	'''
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<title>Practica 02</title>
+						<link rel="icon" type="image/png" href="/static/icon.png">
+						<meta charset="UTF-8">
+  						<meta name="description" content="Practica 02 - DAI">
+  						<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+  						<meta name="author" content="Rafael Bailón Robles">
+  						<meta name="viewport" content="width = device-width, initial-scale = 1.0">
+					</head>
+					<body>%s</body>
+				</html>
+			''' % img_svg
 
 ###############
 # Main Method #
