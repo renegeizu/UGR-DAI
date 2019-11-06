@@ -18,29 +18,28 @@ def setAndClean():
     session["third_name"] = ''
 
 def setVisitPages(url, name):
-    if(session is not None):
-        try:
-            if(session["first_name"] == name):
-                session["first_url"] = session["second_url"]
-                session["first_name"] = session["second_name"]
-                session["second_url"] = session["third_url"]
-                session["second_name"] = session["third_name"]
-                session["third_url"] = url
-                session["third_name"] = name
-            elif(session["second_name"] == name):
-                session["second_url"] = session["third_url"]
-                session["second_name"] = session["third_name"]
-                session["third_url"] = url
-                session["third_name"] = name
-            elif(session["third_name"] != name):
-                session["first_url"] = session["second_url"]
-                session["first_name"] = session["second_name"]
-                session["second_url"] = session["third_url"]
-                session["second_name"] = session["third_name"]
-                session["third_url"] = url
-                session["third_name"] = name
-        except:
-            setAndClean()
+    try:
+        if(session["first_name"] == name):
+            session["first_url"] = session["second_url"]
+            session["first_name"] = session["second_name"]
+            session["second_url"] = session["third_url"]
+            session["second_name"] = session["third_name"]
+            session["third_url"] = url
+            session["third_name"] = name
+        elif(session["second_name"] == name):
+            session["second_url"] = session["third_url"]
+            session["second_name"] = session["third_name"]
+            session["third_url"] = url
+            session["third_name"] = name
+        elif(session["third_name"] != name):
+            session["first_url"] = session["second_url"]
+            session["first_name"] = session["second_name"]
+            session["second_url"] = session["third_url"]
+            session["second_name"] = session["third_name"]
+            session["third_url"] = url
+            session["third_name"] = name
+    except:
+        setAndClean()
 
 #################
 # Funciones Web #
@@ -85,11 +84,23 @@ def modificar():
 
 @app.route("/registrar")
 def registrar():
-    return render_template("registrar.html")
+    try:
+        if(session["user"] is None):
+            return render_template("registrar.html")
+        else:
+            return render_template("error.html")
+    except:
+        return render_template("registrar.html")
 
 @app.route("/modificar")
 def editar():
-    return render_template("modificar.html")
+    try:
+        if(session["user"] is not None):
+            return render_template("modificar.html")
+        else:
+            return render_template("error.html")
+    except:
+        return render_template("error.html")
 
 @app.route("/erza")
 def erza():
