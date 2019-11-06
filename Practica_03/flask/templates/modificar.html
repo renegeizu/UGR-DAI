@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+
+{% block content %}
+    <div class="col-md-6 col-md-offset-2">
+        <form class="form-signin" action="/user/modificar" method="POST">
+            <h1 class="h3 mb-3 font-weight-normal">Registrate</h1>
+            <br/>
+            <label class="sr-only">Password</label>
+            <input type="password" name="pass" class="form-control" placeholder="Nuevo Password">
+            <br/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Cambiar</button>
+        </form>
+    </div>
+{% endblock %}

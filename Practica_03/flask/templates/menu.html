@@ -1,6 +1,9 @@
 <h3>Navegacion</h3>
 <ul class="nav flex-column">
   <li class="nav-item"><a class="nav-link" href="/">Pagina Principal</a></li>
+  {% if session["user"] is not defined %}
+    <li class="nav-item"><a class="nav-link" href="/registrar">Registrate</a></li>
+  {% endif %}
   <li class="nav-item"><a class="nav-link" href="/gray">Gray</a></li>
   <li class="nav-item"><a class="nav-link" href="/natsu">Natsu</a></li>
   <li class="nav-item"><a class="nav-link" href="/erza">Erza</a></li>

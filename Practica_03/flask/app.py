@@ -1,6 +1,7 @@
 #./flask/app.py
 
 from flask import Flask, render_template, request, session, url_for, redirect
+from pickleshare import *
 
 app = Flask(__name__)
 
@@ -53,10 +54,12 @@ def index():
 @app.route("/user/login", methods=["POST"])
 def login():
     session.clear()
-    if(request.form["user"] == 'Makarov' and request.form["pass"] == 'Dreyar'):
-        session["user"] = request.form["user"]
-        session["pass"] = request.form["pass"]
-        setAndClean()
+    db = PickleShareDB('db_users')
+    if(request.form["user"] in db.keys()):
+        if(db[request.form["user"]] == request.form["pass"]):
+            session["user"] = request.form["user"]
+            session["pass"] = request.form["pass"]
+            setAndClean()
     return redirect(url_for("index"))
 
 @app.route("/user/logout", methods=["POST"])
@@ -64,6 +67,29 @@ def logout():
     session.clear()
     setAndClean()
     return redirect(url_for("index"))
+
+@app.route("/user/registrar", methods=["POST"])
+def registro():
+    db = PickleShareDB('db_users')
+    db[request.form["user"]] = request.form["pass"]
+    session["user"] = request.form["user"]
+    session["pass"] = request.form["pass"]
+    return redirect(url_for("index"))
+
+@app.route("/user/modificar", methods=["POST"])
+def modificar():
+    db = PickleShareDB('db_users')
+    db[session["user"]] = request.form["pass"]
+    session["pass"] = request.form["pass"]
+    return redirect(url_for("index"))
+
+@app.route("/registrar")
+def registrar():
+    return render_template("registrar.html")
+
+@app.route("/modificar")
+def editar():
+    return render_template("modificar.html")
 
 @app.route("/erza")
 def erza():
