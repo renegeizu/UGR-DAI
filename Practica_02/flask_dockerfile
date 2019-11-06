@@ -11,7 +11,7 @@ RUN apt-get install libjpeg-dev \
                        zlib1g-dev \
                        libfreetype6-dev \
                        liblcms2-dev 
-                      
+RUN pip install --upgrade pip    
                        
 COPY requirementsFlask.txt requirementsFlask.txt
 RUN pip install -r requirementsFlask.txt

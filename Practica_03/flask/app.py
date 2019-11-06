@@ -39,7 +39,7 @@ def setVisitPages(url, name):
                 session["third_url"] = url
                 session["third_name"] = name
         except:
-            session.clear()
+            setAndClean()
 
 #################
 # Funciones Web #
