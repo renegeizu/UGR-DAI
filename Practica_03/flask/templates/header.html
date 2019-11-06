@@ -1,0 +1,25 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png') }}">
+        <a class="navbar-brand">Fairy Tail</a>
+        <a class="navbar-brand">Unete al Gremio</a>
+      </div>
+      {% if session["user"] %}
+        <form class="navbar-form navbar-right" action="/user/logout" method="POST">
+          <div class="form-group">
+              <a><span class="glyphicon glyphicon-user"></span> Hola, {{ session['user'] }}</a>
+          </div>
+          <button type="submit" class="btn btn-default">Salir</button>
+        </form>
+      {% else %}
+        <form class="navbar-form navbar-right" action="/user/login" method="POST">
+          <div class="form-group">
+              <input class="form-control" name="user" type="text" placeholder="Usuario"/>
+              <input class="form-control" name="pass" type="password" placeholder="Contraseña"/>
+          </div>
+          <button type="submit" class="btn btn-default">Entrar</button>
+        </form>
+      {% endif %}
+    </div>
+  </nav>

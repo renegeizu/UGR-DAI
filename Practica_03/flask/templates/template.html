@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Practica 03</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
+    <meta charset="UTF-8">
+    <meta name="description" content="Practica 03 - DAI">
+    <meta name="keywords" content="HTML, CSS, XML, JavaScript">
+    <meta name="author" content="Rafael Bailón Robles">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+  </head>
+  <body>
+    {% include "header.html" %}
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+            {% include "menu.html" %}
+        </div>
+        <div class="col-md-8">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    {% include "footer.html" %}
+  </body>
+</html>

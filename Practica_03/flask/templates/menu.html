@@ -1,0 +1,22 @@
+<h3>Navegacion</h3>
+<ul class="nav flex-column">
+  <li class="nav-item"><a class="nav-link" href="/">Pagina Principal</a></li>
+  <li class="nav-item"><a class="nav-link" href="/gray">Gray</a></li>
+  <li class="nav-item"><a class="nav-link" href="/natsu">Natsu</a></li>
+  <li class="nav-item"><a class="nav-link" href="/erza">Erza</a></li>
+  <li class="nav-item"><a class="nav-link" href="/juvia">Juvia</a></li>
+</ul>
+{% if session["user"] %}
+  <h3>Ultimas Visitas</h3>
+  <ul class="nav flex-column">
+    {% if session["third_url"] %}
+      <li class='nav-item'><a class='nav-link' href='{{ session["third_url"] }}'>{{ session["third_name"] }}</a></li>
+    {% endif %}
+    {% if session["second_url"] %}
+      <li class='nav-item'><a class='nav-link' href='{{ session["second_url"] }}'>{{ session["second_name"] }}</a></li>
+    {% endif %}
+    {% if session["first_url"] %}
+      <li class='nav-item'><a class='nav-link' href='{{ session["first_url"] }}'>{{ session["first_name"] }}</a></li>
+    {% endif %}
+  </ul>
+{% endif %}
