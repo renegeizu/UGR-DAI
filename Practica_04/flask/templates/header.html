@@ -1,25 +1,41 @@
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png') }}">
-      <a class="navbar-brand">Fairy Tail</a>
-      <a class="navbar-brand">Unete al Gremio</a>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png') }}">
+        <a class="navbar-brand">Pokemon</a>
+        <a class="navbar-brand">Buscalos a Todos</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Index</a></li>
+        {% if session["user"] %}
+          <li><a href="/editar">Modificar</a></li>
+          <li><a href="/borrar">Borrar</a></li>
+        {% else %}
+          <li><a href="/registrar">Registrate</a></li>
+        {% endif %}
+      </ul>
+      <form class="navbar-form navbar-left" action="/db/buscar" method="GET">
+        <div class="form-group">
+          <input type="number" name="id" class="form-control" placeholder="Numero Pokemon" required>
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+      </form>
+      {% if session["user"] %}
+        <form class="navbar-form navbar-right" action="/user/logout" method="POST">
+          <div class="form-group">
+              <a><span class="glyphicon glyphicon-user"></span> Hola, {{ session['user'] }}</a>
+          </div>
+          <button class="btn btn-default"><a href="/modificar">Modificar</a></button>
+          <button type="submit" class="btn btn-default">Salir</button>
+        </form>
+      {% else %}
+        <form class="navbar-form navbar-right" action="/user/login" method="POST">
+          <div class="form-group">
+              <input class="form-control" name="user" type="text" placeholder="Usuario" required/>
+              <input class="form-control" name="pass" type="password" placeholder="Contraseña" required/>
+          </div>
+          <button type="submit" class="btn btn-default">Entrar</button>
+        </form>
+      {% endif %}
     </div>
-    {% if session["user"] %}
-      <form class="navbar-form navbar-right" action="/user/logout" method="POST">
-        <div class="form-group">
-            <a><span class="glyphicon glyphicon-user"></span> Hola, {{ session['user'] }}</a>
-        </div>
-        <button type="submit" class="btn btn-default">Salir</button>
-      </form>
-    {% else %}
-      <form class="navbar-form navbar-right" action="/user/login" method="POST">
-        <div class="form-group">
-            <input class="form-control" name="user" type="text" placeholder="Usuario"/>
-            <input class="form-control" name="pass" type="password" placeholder="Contraseña"/>
-        </div>
-        <button type="submit" class="btn btn-default">Entrar</button>
-      </form>
-    {% endif %}
-  </div>
-</nav>
+  </nav>

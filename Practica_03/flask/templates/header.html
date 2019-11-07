@@ -16,8 +16,8 @@
       {% else %}
         <form class="navbar-form navbar-right" action="/user/login" method="POST">
           <div class="form-group">
-              <input class="form-control" name="user" type="text" placeholder="Usuario"/>
-              <input class="form-control" name="pass" type="password" placeholder="Contraseña"/>
+              <input class="form-control" name="user" type="text" placeholder="Usuario" required/>
+              <input class="form-control" name="pass" type="password" placeholder="Contraseña" required/>
           </div>
           <button type="submit" class="btn btn-default">Entrar</button>
         </form>
