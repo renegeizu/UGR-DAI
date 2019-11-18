@@ -237,7 +237,7 @@ def error_404(error):
 			''' % (error)
 
 # Creando Imágenes Dinámicas [Binarias]
-@app.route('/imgbin')
+@app.route('/imgbin', methods=["GET"])
 def content_imgbin():
 	arguments = {
 		"x1": -2.0,
