@@ -14,7 +14,7 @@ sudo make django-startapp
 
 # Creacion de Directorios
 
-sudo mkdir $sitioWeb/templates
+sudo mkdir $aplicacion/templates
 sudo mkdir $aplicacion/static
 
 sudo mv -f $backup/sitio_web-settings.py $sitioWeb/settings.py
@@ -30,10 +30,11 @@ sudo make django-createsuperuser
 sudo mv -f $backup/sitio_web-urls.py $sitioWeb/urls.py
 sudo mv -f $backup/aplicacion-views.py $aplicacion/views.py
 sudo mv -f $backup/aplicacion-urls.py $aplicacion/urls.py
+sudo mv -f $backup/test.html $aplicacion/static/test.html
 
 # Cambiar Permisos
 
-chmod -R 777  ../Practica_05
+sudo chmod -R 777  ../Practica_05
 
 # Eliminar Archivos Temporales
 
