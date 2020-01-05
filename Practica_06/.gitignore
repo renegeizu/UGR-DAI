@@ -1,6 +1,0 @@
-#.gitignore
-
-web/aplicacion
-web/sitio_web
-*.sqlite3
-*.py
