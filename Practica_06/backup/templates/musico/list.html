@@ -1,0 +1,22 @@
+{% extends 'basic.html' %}
+
+{% block title %}Listado - Musicos{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Listado de Musicos</h1>
+    </div>
+    <div class="container">
+        <ul class="list-group">
+            {% for musico in musicos %}
+            <li>
+                {{ musico.nombre }}, {{ musico.instrumento }}
+                <a class="btn btn-primary" href="/aplicacion/edit_musico/{{ musico.id }}">Editar</a> |
+                <a class="btn btn-danger" href="/aplicacion/delete_musico/{{ musico.id }}" onClick="return confirm('¿Seguro que quieres borrar a {{musico.nombre}}?');">Borrar</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <hr />
+          <a class="btn btn-success" href="/aplicacion/add_musico">Crear musico</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'basic.html' %}
+
+{% block title %}Editar - Album{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Editar Album</h1>
+    </div>
+    <div class="container">
+        <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Guardar Album</button>
+        </form>
+    </div>
+{% endblock %}

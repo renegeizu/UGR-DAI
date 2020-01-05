@@ -1,0 +1,22 @@
+{% extends 'basic.html' %}
+
+{% block title %}Listado - Grupos{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Listado de Grupos</h1>
+    </div>
+    <div class="container">
+        <ul class="list-group">
+            {% for grupo in grupos %}
+            <li>
+                {{ grupo.nombre }}, {{ grupo.estilo }}
+                <a class="btn btn-primary" href="/aplicacion/edit_grupo/{{ grupo.id }}">Editar</a> |
+                <a class="btn btn-danger" href="/aplicacion/delete_grupo/{{ grupo.id }}" onClick="return confirm('¿Seguro que quieres borrar a {{grupo.nombre}}?');">Borrar</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <hr />
+          <a class="btn btn-success" href="/aplicacion/add_grupo">Crear Grupo</a>
+    </div>
+{% endblock %}

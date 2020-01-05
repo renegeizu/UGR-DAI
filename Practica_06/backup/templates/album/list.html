@@ -1,0 +1,22 @@
+{% extends 'basic.html' %}
+
+{% block title %}Listado - Albums{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Listado de Albums</h1>
+    </div>
+    <div class="container">
+        <ul class="list-group">
+            {% for album in albums %}
+            <li>
+                {{ album.titulo }}, {{ album.grupo.nombre }}
+                <a class="btn btn-primary" href="/aplicacion/edit_album/{{ album.id }}">Editar</a> |
+                <a class="btn btn-danger" href="/aplicacion/delete_album/{{ album.id }}" onClick="return confirm('¿Seguro que quieres borrar a {{album.titulo}}?');">Borrar</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <hr />
+          <a class="btn btn-success" href="/aplicacion/add_album">Crear Album</a>
+    </div>
+{% endblock %}

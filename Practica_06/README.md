@@ -31,5 +31,3 @@ Ya que Django trae un mecanismo de usuarios y existen plugins para facilitar la 
 Adapta los templates que viene por defecto para que la página de login / registro... se integre bien en tu sitio web. En [este foro](https://stackoverflow.com/questions/9437545/overriding-default-templates-of-django-allauth) dan algunas pistas sobre como hacerlo.
 
 **Nota:** En las transparencias de teoría hay varios enlaces con tutoriales para instsalar allauth así como algunos templates que usan bootstrap 4 para incorporar los formularios de autenticación.
-
-
