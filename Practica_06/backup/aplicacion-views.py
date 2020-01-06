@@ -80,14 +80,14 @@ def update_album(request, pk):
 def delete_musico(request, pk):
     instancia = Musico.objects.get(id=pk)
     instancia.delete()
-    return redirect('/')
+    return redirect('/aplicaciones/musicos')
 
 def delete_grupo(request, pk):
     instancia = Grupo.objects.get(id=pk)
     instancia.delete()
-    return redirect('/')
+    return redirect('/aplicaciones/grupos')
 
 def delete_album(request, pk):
     instancia = Album.objects.get(id=pk)
     instancia.delete()
-    return redirect('/')
+    return redirect('/aplicaciones/albums')
