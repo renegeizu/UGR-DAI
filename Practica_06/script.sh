@@ -34,7 +34,8 @@ sudo mv -f $backup/test.html $aplicacion/static/test.html
 sudo mv -f $backup/aplicacion-forms.py $aplicacion/forms.py
 sudo mv -f $backup/aplicacion-models.py $aplicacion/models.py
 
-sudo mv $backup/templates $aplicacion
+sudo mv $backup/app_templates/templates $aplicacion
+sudo mv $backup/web_templates/templates web
 
 # Cambiar Permisos
 
