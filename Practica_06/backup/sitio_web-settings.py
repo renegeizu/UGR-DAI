@@ -133,3 +133,11 @@ STATIC_URL = '/static/'
 
 # al final del archivo settings.py
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# opciones allauth
+
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400
+ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
+LOGIN_REDIRECT_URL = '/aplicacion'

@@ -67,5 +67,3 @@ Y en el servidor mandamos los datos con la función `JsonResponse` con el parám
         return JsonResponse(datos, safe=False)
 
 En este apartado se pide modificar el paginador del punto anterior para usar `AJAX` y no recargar la página completa en cada petición al paginador.
-
-
