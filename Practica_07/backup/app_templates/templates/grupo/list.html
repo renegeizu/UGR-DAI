@@ -1,0 +1,43 @@
+{% extends 'basic.html' %}
+
+{% block title %}Listado - Grupos{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Listado de Grupos</h1>
+    </div>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha Fundacion</th>
+                    <th>Estilo Musical</th>
+                    <th>Componentes</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for grupo in grupos %}
+                    <tr>
+                        <td>{{grupo.nombre}}</td>
+                        <td>{{grupo.fecha_fundacion}}</td>
+                        <td>{{grupo.estilo_musical}}</td>
+                        <td>
+                            {% for musico in grupo.componentes.all %}
+                                {{musico.apellidos}}, {{musico.nombre}} <br/>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="/aplicacion/edit_grupo/{{ grupo.id }}">Editar</a> | 
+                            <a class="btn btn-danger" href="/aplicacion/delete_grupo/{{ grupo.id }}" 
+                                onClick="return confirm('¿Seguro que quieres borrar a {{grupo.nombre}}?');">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+          <hr />
+          <a class="btn btn-success" href="/aplicacion/add_grupo">Crear Grupo</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'basic.html' %}
+
+{% block title %}Editar - Grupo{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Editar Grupo</h1>
+    </div>
+    <div class="container">
+        <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Guardar Grupo</button>
+        </form>
+    </div>
+{% endblock %}
