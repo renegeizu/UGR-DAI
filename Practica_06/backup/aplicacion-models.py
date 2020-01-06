@@ -11,9 +11,9 @@ class Musico(models.Model):
         return self.nombre
 
 class Grupo(models.Model):
-    nombre = models.TextField()
+    nombre = models.CharField(max_length=100)
     fecha_fundacion = models.DateField(default=date.today)
-    estilo_musical = models.TextField()
+    estilo_musical = models.CharField(max_length=100)
     componentes = models.ManyToManyField(Musico)
 
     def __str__(self):

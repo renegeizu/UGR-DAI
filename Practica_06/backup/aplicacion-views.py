@@ -28,8 +28,7 @@ def add_musico(request):
     if request.method == "POST":
         form = MusicoForm(request.POST)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
             return redirect('/aplicacion/musicos')
     return render(request, "musico/add.html", {'form': form})
 
@@ -38,8 +37,7 @@ def add_grupo(request):
     if request.method == "POST":
         form = GrupoForm(request.POST)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
             return redirect('/aplicacion/grupos')
     return render(request, "grupo/add.html", {'form': form})
 
@@ -48,8 +46,7 @@ def add_album(request):
     if request.method == "POST":
         form = AlbumForm(request.POST)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
             return redirect('/aplicacion/albums')
     return render(request, "album/add.html", {'form': form})
 
@@ -59,8 +56,7 @@ def update_musico(request, pk):
     if request.method == "POST":
         form = MusicoForm(request.POST, instance=instancia)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
     return render(request, "musico/update.html", {'form': form})
 
 def update_grupo(request, pk):
@@ -69,8 +65,7 @@ def update_grupo(request, pk):
     if request.method == "POST":
         form = GrupoForm(request.POST, instance=instancia)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
     return render(request, "grupo/update.html", {'form': form})
 
 def update_album(request, pk):
@@ -79,8 +74,7 @@ def update_album(request, pk):
     if request.method == "POST":
         form = AlbumForm(request.POST, instance=instancia)
         if form.is_valid():
-            instancia = form.save(commit=False)
-            instancia.save()
+            form.save()
     return render(request, "album/update.html", {'form': form})
 
 def delete_musico(request, pk):

@@ -7,15 +7,32 @@
         <h1>Listado de Musicos</h1>
     </div>
     <div class="container">
-        <ul class="list-group">
-            {% for musico in musicos %}
-            <li>
-                {{ musico.nombre }}, {{ musico.instrumento }}
-                <a class="btn btn-primary" href="/aplicacion/edit_musico/{{ musico.id }}">Editar</a> |
-                <a class="btn btn-danger" href="/aplicacion/delete_musico/{{ musico.id }}" onClick="return confirm('¿Seguro que quieres borrar a {{musico.nombre}}?');">Borrar</a>
-            </li>
-            {% endfor %}
-          </ul>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Instrumento</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for musico in musicos %}
+                    <tr>
+                        <td>{{musico.nombre}}</td>
+                        <td>{{musico.apellidos}}</td>
+                        <td>{{musico.fecha_nacimiento}}</td>
+                        <td>{{musico.instrumento}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="/aplicacion/edit_musico/{{ musico.id }}">Editar</a> | 
+                            <a class="btn btn-danger" href="/aplicacion/delete_musico/{{ musico.id }}" 
+                                onClick="return confirm('¿Seguro que quieres borrar a {{musico.nombre}}?');">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
           <hr />
           <a class="btn btn-success" href="/aplicacion/add_musico">Crear musico</a>
     </div>
