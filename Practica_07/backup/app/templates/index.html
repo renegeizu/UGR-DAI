@@ -1,6 +1,18 @@
 {% extends 'basic.html' %}
 
+{% load staticfiles %}
+
 {% block title %}BBDD Musica{% endblock %}
+
+{% block cabeceras %}
+    <script src="{% static 'js/change_style.js' %}"></script>
+{% endblock %}
+
+{% block menu %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" onclick="change_event()"><span class="glyphicon glyphicon-pencil"></span> Cambiar Modo</a></li>
+    </ul>
+{% endblock %}
 
 {% block content %}
     <div class="jumbotron text-center">
@@ -12,17 +24,17 @@
             <div class="col-sm-4">
                 <h3>Musicos</h3>
                 <p>Accede al listado de musicos</p>
-                <a href="/aplicacion/musicos" class="btn btn-primary">Listado</a>
+                <a id="btn1" href="/aplicacion/musicos" class="btn btn-primary">Listado</a>
             </div>
             <div class="col-sm-4">
                 <h3>Grupos</h3>
                 <p>Accede al listado de grupos</p>
-                <a href="/aplicacion/grupos" class="btn btn-danger">Listado</a>
+                <a id="btn2" href="/aplicacion/grupos" class="btn btn-danger">Listado</a>
             </div>
             <div class="col-sm-4">
                 <h3>Albums</h3>
                 <p>Accede al listado de albums</p>
-                <a href="/aplicacion/albums" class="btn btn-success">Listado</a>
+                <a id="btn3" href="/aplicacion/albums" class="btn btn-success">Listado</a>
             </div>
         </div>
     </div>

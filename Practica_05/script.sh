@@ -30,7 +30,7 @@ sudo make django-createsuperuser
 sudo mv -f $backup/sitio_web-urls.py $sitioWeb/urls.py
 sudo mv -f $backup/aplicacion-views.py $aplicacion/views.py
 sudo mv -f $backup/aplicacion-urls.py $aplicacion/urls.py
-sudo mv -f $backup/test.html $aplicacion/static/test.html
+sudo mv -f $backup/test.html $aplicacion/templates/test.html
 
 # Cambiar Permisos
 
