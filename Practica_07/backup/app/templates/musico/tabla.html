@@ -1,0 +1,13 @@
+{% for musico in musicos %}
+    <tr>
+        <td>{{musico.nombre}}</td>
+        <td>{{musico.apellidos}}</td>
+        <td>{{musico.fecha_nacimiento}}</td>
+        <td>{{musico.instrumento}}</td>
+        <td>
+            <a class="btn btn-primary" href="/aplicacion/edit_musico/{{ musico.id }}">Editar</a> | 
+            <a class="btn btn-danger" href="/aplicacion/delete_musico/{{ musico.id }}" 
+                onClick="return confirm('¿Seguro que quieres borrar a {{musico.nombre}}?');">Borrar</a>
+        </td>
+    </tr>
+{% endfor %}

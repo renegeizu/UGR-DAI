@@ -1,0 +1,17 @@
+{% for grupo in grupos %}
+    <tr>
+        <td>{{grupo.nombre}}</td>
+        <td>{{grupo.fecha_fundacion}}</td>
+        <td>{{grupo.estilo_musical}}</td>
+        <td>
+            {% for musico in grupo.componentes.all %}
+                {{musico.apellidos}}, {{musico.nombre}} <br/>
+            {% endfor %}
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/aplicacion/edit_grupo/{{ grupo.id }}">Editar</a> | 
+            <a class="btn btn-danger" href="/aplicacion/delete_grupo/{{ grupo.id }}" 
+                onClick="return confirm('¿Seguro que quieres borrar a {{grupo.nombre}}?');">Borrar</a>
+        </td>
+    </tr>
+{% endfor %}

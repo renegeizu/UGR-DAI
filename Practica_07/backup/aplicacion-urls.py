@@ -18,4 +18,7 @@ urlpatterns = [
   path('delete_musico/<int:pk>', views.delete_musico),
   path('delete_grupo/<int:pk>', views.delete_grupo),
   path('delete_album/<int:pk>', views.delete_album),
+  url(r'^info_musicos/$', views.info_musicos, name='info_musicos'),
+  url(r'^info_grupos/$', views.info_grupos, name='info_grupos'),
+  url(r'^info_albums/$', views.info_albums, name='info_albums'),
 ]

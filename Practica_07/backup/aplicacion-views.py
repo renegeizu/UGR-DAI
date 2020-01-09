@@ -1,4 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.template import loader
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 
 from .forms import MusicoForm, GrupoForm, AlbumForm
 
@@ -9,24 +13,96 @@ def index(request):
 
 def musicos(request):
     if request.user.is_authenticated:
-        musicos = Musico.objects.all()
+        musicos = Musico.objects.all()[:5]
         return render(request, "musico/list.html", {'musicos': musicos})
     else:
         return redirect('/accounts/login')
 
+@csrf_exempt
+def info_musicos(request):
+    page = request.POST.get('page')
+    musicos = Musico.objects.all()
+    results_per_page = 5
+    paginator = Paginator(musicos, results_per_page)
+    try:
+        musicos = paginator.page(page)
+        page = int(page) + 1
+    except PageNotAnInteger:
+        page = 2
+        musicos = paginator.page(1)
+    except EmptyPage:
+        page = paginator.num_pages
+        musicos = paginator.page(pages)
+    musicos_html = loader.render_to_string('musico/tabla.html', {'musicos': musicos})
+    output_data = {
+        'musicos_html': musicos_html,
+        'has_next': musicos.has_next(),
+        'has_prev': musicos.has_previous(),
+        'num_page': page
+    }
+    return JsonResponse(output_data, safe=False)
+
 def grupos(request):
     if request.user.is_authenticated:
-        grupos = Grupo.objects.all()
+        grupos = Grupo.objects.all()[:5]
         return render(request, "grupo/list.html", {'grupos': grupos})
     else:
         return redirect('/accounts/login')
 
+@csrf_exempt
+def info_grupos(request):
+    page = request.POST.get('page')
+    grupos = Grupo.objects.all()
+    results_per_page = 5
+    paginator = Paginator(grupos, results_per_page)
+    try:
+        grupos = paginator.page(page)
+        page = int(page) + 1
+    except PageNotAnInteger:
+        page = 2
+        grupos = paginator.page(1)
+    except EmptyPage:
+        page = paginator.num_pages
+        grupos = paginator.page(pages)
+    grupos_html = loader.render_to_string('grupo/tabla.html', {'grupos': grupos})
+    output_data = {
+        'grupos_html': grupos_html,
+        'has_next': grupos.has_next(),
+        'has_prev': grupos.has_previous(),
+        'num_page': page
+    }
+    return JsonResponse(output_data, safe=False)
+
 def albums(request):
     if request.user.is_authenticated:
-        albums = Album.objects.all()
+        albums = Album.objects.all()[:5]
         return render(request, "album/list.html", {'albums': albums})
     else:
         return redirect('/accounts/login')
+
+@csrf_exempt
+def info_albums(request):
+    page = request.POST.get('page')
+    albums = Album.objects.all()
+    results_per_page = 5
+    paginator = Paginator(albums, results_per_page)
+    try:
+        albums = paginator.page(page)
+        page = int(page) + 1
+    except PageNotAnInteger:
+        page = 2
+        albums = paginator.page(1)
+    except EmptyPage:
+        page = paginator.num_pages
+        albums = paginator.page(pages)
+    albums_html = loader.render_to_string('album/tabla.html', {'albums': albums})
+    output_data = {
+        'albums_html': albums_html,
+        'has_next': albums.has_next(),
+        'has_prev': albums.has_previous(),
+        'num_page': page
+    }
+    return JsonResponse(output_data, safe=False)
 
 def test_template(request):
     context = {}
