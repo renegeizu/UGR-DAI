@@ -3,8 +3,6 @@
 
 #### Guión de Prácticas 9: Despliegue
 
-![](DAI%20Pr%C3%A1ctica%209%20-%20Despliegue_files/localhost2.jpg)
-
 La última práctica consiste en tener una aplicación web desplegada en un ambiente de 'producción', es decir funcionando con la depuración en 'OFF' y conectada a un servidor web como [ngix](https://www.nginx.com/) o [apache](http://httpd.apache.org/) en el puerto 80.
 
 Puede ser alguna que se haya hecho en las prácticas con flask o django, u `otra que se haya hecho en la asignatura de Infraestructura Virtual`.

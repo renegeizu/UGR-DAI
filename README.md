@@ -22,3 +22,27 @@ Practica 04
 + Herencia en Plantillas
 + Framework CSS
 + Persistencia: Base de Datos NO-SQL: mongoDB
+
+Practica 05
+--------------
++ Instalacion de Django
+
+Practica 06
+--------------
++ Modelos de Django
++ Formularios
++ Autentificacion
+
+Practica 07
+--------------
++ Cambios Dinamicos de CSS
++ Paginador
+
+Practica 08
+--------------
++ Mapas y Geolocalizacion
++ Graficas Estadisticas
+
+Practica 09
+--------------
++ Despliegue
