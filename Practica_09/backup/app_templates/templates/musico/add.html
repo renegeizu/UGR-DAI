@@ -1,0 +1,16 @@
+{% extends 'basic.html' %}
+
+{% block title %}Añadir - Musico{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Añadir Musico</h1>
+    </div>
+    <div class="container">
+        <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Crear Musico</button>
+        </form>
+    </div>
+{% endblock %}

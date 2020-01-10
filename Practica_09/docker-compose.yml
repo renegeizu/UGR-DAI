@@ -1,23 +1,21 @@
-version: "3.7"
+version: '3.7'
 
 services:
-  app:
-    build: .
-    container_name: django-gunicorn-despliegue
-    restart: always
-    env_file:
-      - django.env
-    ports:
-      - "8000:8000"
-    command:
-      "gunicorn --workers=2 --bind=0.0.0.0:8000 mysite.wsgi:application"
-
-  nginx:
-    image: nginx:1.17
-    container_name: ngx
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    depends_on:
-      - app
+   web:
+      build: web
+      restart: always
+      ports:
+         - 8000:8000
+      command: gunicorn sitio_web.wsgi:aplicacion --bind 0.0.0.0:8000
+      volumes:
+         - ./web:/web
+   nginx:
+      image: nginx:alpine
+      ports:
+         - 80:80
+         - 443:443
+      volumes:
+         - ./conf:/etc/nginx/conf.d:ro
+         - ./web/static:/var/www/static
+      depends_on:
+         - web

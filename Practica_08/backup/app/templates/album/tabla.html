@@ -1,0 +1,15 @@
+{% for album in albums %}
+    <tr>
+        <td>{{album.titulo}}</td>
+        <td>{{album.distribuidora}}</td>
+        <td>{{album.fecha_lanzamiento}}</td>
+        <td>
+            {{album.grupo}}
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/aplicacion/edit_album/{{ album.id }}">Editar</a> | 
+            <a class="btn btn-danger" href="/aplicacion/delete_album/{{ album.id }}" 
+                onClick="return confirm('¿Seguro que quieres borrar a {{album.titulo}}?');">Borrar</a>
+        </td>
+    </tr>
+{% endfor %}

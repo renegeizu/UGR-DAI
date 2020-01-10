@@ -1,0 +1,101 @@
+{% extends 'basic.html' %}
+
+{% block title %}Listado - Albums{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Listado de Albums</h1>
+    </div>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Distribuidora</th>
+                    <th>Fecha de Lanzamiento</th>
+                    <th>Grupo</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody id="albums">
+                {% include 'album/tabla.html' %}
+            </tbody>
+          </table>
+          <hr />
+          <a id="anterior" href="#" data-page="2" class="btn btn-primary">Anterior</a>
+          <a id="siguiente" href="#" data-page="2" class="btn btn-primary">Siguiente</a>
+          <a class="btn btn-success" href="/aplicacion/add_album">Crear Album</a>
+    </div>
+    <script>
+        window.CSRF_TOKEN = "{{ csrf_token }}";
+        $(document).ready(function(){
+            $('#anterior').hide();
+        });
+        (function($) {
+            $('#siguiente').on('click', function() {
+                document.getElementById('albums').innerHTML = '';
+                var link = $(this);
+                var button = $('#anterior');
+                var page = link.data('page');
+                $.ajax({
+                    type: 'post',
+                    url: '/aplicacion/info_albums/',
+                    data: {
+                        'page': page,
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN
+                },
+                success: function(data) {
+                    if (data.has_next) {
+                        link.data('page', data.num_page);
+                        link.show();
+                    } else {
+                        link.hide();
+                    }
+                    if (data.has_prev) {
+                        button.data('page', data.num_page-2);
+                        button.show();
+                    } else {
+                        button.hide();
+                    }
+                    $('#albums').append(data.albums_html);
+                },
+                error: function(xhr, status, error) {
+                    }
+                });
+            });
+            }(jQuery));
+            (function($) {
+                $('#anterior').on('click', function() {
+                    document.getElementById('albums').innerHTML = '';
+                    var link = $(this);
+                    var button = $('#siguiente');
+                    var page = link.data('page');
+                    $.ajax({
+                        type: 'post',
+                        url: '/aplicacion/info_albums/',
+                        data: {
+                            'page': page,
+                            'csrfmiddlewaretoken': window.CSRF_TOKEN
+                    },
+                    success: function(data) {
+                        if (data.has_next) {
+                            button.data('page', data.num_page);
+                            button.show();
+                        } else {
+                            button.hide();
+                        }
+                        if (data.has_prev) {
+                            link.data('page', data.num_page-2);
+                            link.show();
+                        } else {
+                            link.hide();
+                        }
+                        $('#albums').append(data.albums_html);
+                    },
+                    error: function(xhr, status, error) {
+                        }
+                    });
+                });
+            }(jQuery));
+    </script>
+{% endblock %}
