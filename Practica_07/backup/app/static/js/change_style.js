@@ -2,7 +2,7 @@ let flag = true;
 
 function new_mode() {
     document.getElementById("navigation").className = "navbar navbar-default";
-    document.getElementById("btn1").className = "btn";
+    document.getElementById("btn1").className = "btn btn-success";
     document.getElementById("btn2").className = "btn btn-info";
     document.getElementById("btn3").className = "btn btn-warning";
 }
