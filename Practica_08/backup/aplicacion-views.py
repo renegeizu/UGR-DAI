@@ -152,7 +152,15 @@ def update_musico(request, pk):
             form = MusicoForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect('/aplicacion/musicos')
         return render(request, "musico/update.html", {'form': form})
+    else:
+        return redirect('/accounts/login')
+
+def detail_musico(request, pk):
+    if request.user.is_authenticated:
+        grupos = Grupo.objects.get(id=pk)
+        return render(request, "musico/detail.html", {'grupos': grupos})
     else:
         return redirect('/accounts/login')
 
@@ -164,6 +172,7 @@ def update_grupo(request, pk):
             form = GrupoForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect("/aplicacion/grupos")
         return render(request, "grupo/update.html", {'form': form})
     else:
         return redirect('/accounts/login')
@@ -176,6 +185,7 @@ def update_album(request, pk):
             form = AlbumForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect("/aplicacion/albums")
         return render(request, "album/update.html", {'form': form})
     else:
         return redirect('/accounts/login')
@@ -184,7 +194,7 @@ def delete_musico(request, pk):
     if request.user.is_authenticated:
         instancia = Musico.objects.get(id=pk)
         instancia.delete()
-        return redirect('/aplicaciones/musicos')
+        return redirect('/aplicacion/musicos')
     else:
         return redirect('/accounts/login')
 
@@ -192,7 +202,7 @@ def delete_grupo(request, pk):
     if request.user.is_authenticated:
         instancia = Grupo.objects.get(id=pk)
         instancia.delete()
-        return redirect('/aplicaciones/grupos')
+        return redirect('/aplicacion/grupos')
     else:
         return redirect('/accounts/login')
 
@@ -200,6 +210,6 @@ def delete_album(request, pk):
     if request.user.is_authenticated:
         instancia = Album.objects.get(id=pk)
         instancia.delete()
-        return redirect('/aplicaciones/albums')
+        return redirect('/aplicacion/albums')
     else:
         return redirect('/accounts/login')

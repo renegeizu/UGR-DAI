@@ -21,4 +21,5 @@ urlpatterns = [
   url(r'^info_musicos/$', views.info_musicos, name='info_musicos'),
   url(r'^info_grupos/$', views.info_grupos, name='info_grupos'),
   url(r'^info_albums/$', views.info_albums, name='info_albums'),
+  path('detail_musico/<int:pk>', views.detail_musico),
 ]

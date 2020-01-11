@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+
+{% block title %}Detalles - Musicos{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Detalles de Musicos del Grupo {{grupos.nombre}}</h1>
+    </div>
+    <div class="container">
+        {% for musico in grupos.componentes.all %}
+            <div class="panel panel-info">
+                <div class="panel-heading">Ficha Informativa de {{musico.nombre}} {{musico.apellidos}}</div>
+                <div class="panel-body">
+                    <strong>Nombre:</strong> {{musico.nombre}}
+                    <br/>
+                    <strong>Apellidos:</strong> {{musico.apellidos}}
+                    <br/>
+                    <strong>Fecha de Nacimiento:</strong> {{musico.fecha_nacimiento}}
+                    <br/>
+                    <strong>Instrumento:</strong> {{musico.instrumento}}
+                </div>
+            </div>
+        {% endfor %} 
+    </div>
+    <div id="map" class="container"></div>
+	<script type="text/javascript">
+        var demoMap = L.map('map').setView([40.453191, -3.509236], 6);
+        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+        var osm = new L.TileLayer(osmUrl, {
+            minZoom: 5,
+            maxZoom: 16,
+            attribution: osmAttrib
+        });
+        var location = [39.190878, -5.7806939999999996];
+        var marker = L.marker(location)
+        marker.bindPopup('<p>Latitud:'+location[0]+'</p><p>Longitud:'+location[1]+'</p>');
+        marker.addTo(demoMap);
+    </script>
+{% endblock %}
