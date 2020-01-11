@@ -76,6 +76,7 @@ def update_musico(request, pk):
             form = MusicoForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect('/aplicacion/musicos')
         return render(request, "musico/update.html", {'form': form})
     else:
         return redirect('/accounts/login')
@@ -88,6 +89,7 @@ def update_grupo(request, pk):
             form = GrupoForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect('/aplicacion/grupos')
         return render(request, "grupo/update.html", {'form': form})
     else:
         return redirect('/accounts/login')
@@ -100,6 +102,7 @@ def update_album(request, pk):
             form = AlbumForm(request.POST, instance=instancia)
             if form.is_valid():
                 form.save()
+                return redirect('/aplicacion/albums')
         return render(request, "album/update.html", {'form': form})
     else:
         return redirect('/accounts/login')
