@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
+from django.core import serializers
 
 from .forms import MusicoForm, GrupoForm, AlbumForm
 
@@ -160,7 +161,8 @@ def update_musico(request, pk):
 def detail_musico(request, pk):
     if request.user.is_authenticated:
         grupos = Grupo.objects.get(id=pk)
-        return render(request, "musico/detail.html", {'grupos': grupos})
+        localizations = serializers.serialize('json', list(grupos.componentes.all()))
+        return render(request, "musico/detail.html", {'grupos': grupos, 'localizations': localizations})
     else:
         return redirect('/accounts/login')
 

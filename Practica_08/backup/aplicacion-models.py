@@ -6,6 +6,8 @@ class Musico(models.Model):
     apellidos = models.CharField(max_length=100)
     fecha_nacimiento = models.DateField(default=date.today)
     instrumento = models.CharField(max_length=100)
+    latitud = models.FloatField(default = 40.4378698)
+    longitud = models.FloatField(default = -3.8196212)
 
     def __str__(self):
         return self.nombre

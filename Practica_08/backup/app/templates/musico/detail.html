@@ -20,21 +20,20 @@
                     <strong>Instrumento:</strong> {{musico.instrumento}}
                 </div>
             </div>
-        {% endfor %} 
+        {% endfor %}
+        <div id="map" style="margin:12px 0 12px 0;height:600px;"></div>
     </div>
-    <div id="map" class="container"></div>
-	<script type="text/javascript">
-        var demoMap = L.map('map').setView([40.453191, -3.509236], 6);
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, {
-            minZoom: 5,
-            maxZoom: 16,
-            attribution: osmAttrib
-        });
-        var location = [39.190878, -5.7806939999999996];
-        var marker = L.marker(location)
-        marker.bindPopup('<p>Latitud:'+location[0]+'</p><p>Longitud:'+location[1]+'</p>');
-        marker.addTo(demoMap);
+    <script>
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        osm = L.tileLayer(osmUrl, {minZoom: 0, maxZoom: 20, attribution: osmAttrib});
+        var map = L.map('map').setView([40.4378698, -3.8196212], 6).addLayer(osm);
+        var localizaciones = JSON.parse('{{localizations|safe}}');
+        for (var i = 0; i < localizaciones.length; i++){
+            L.marker([localizaciones[i].fields.latitud, localizaciones[i].fields.longitud])
+                .addTo(map)
+                .bindPopup(localizaciones[i].fields.nombre + ' ' + localizaciones[i].fields.apellidos)
+                .openPopup();
+        }
     </script>
 {% endblock %}
