@@ -1,0 +1,68 @@
+{% extends 'basic.html' %}
+
+{% block title %}Estadisticas{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>Estadisticas de Albums de Grupos</h1>
+    </div>
+    <div class="container">
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <script>
+        var estadisticas = JSON.parse('{{estadisticas|safe}}');
+        var lista = []
+        for (var i = 0; i < estadisticas.length; i++){
+            lista.push([estadisticas[i][0], estadisticas[i][1]])
+        }
+        console.log(lista);
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Estadisticas de Albums publicados por Grupos'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Albums Publicados'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Albums Publicados: <b>{point.y:.1f}</b>'
+                },
+                series: [{
+                    name: 'Grupos',
+                    data: lista,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}',
+                        y: 10,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            });
+        });
+    </script>
+{% endblock %}

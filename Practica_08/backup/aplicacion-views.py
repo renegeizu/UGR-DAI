@@ -5,6 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.core import serializers
 
+import json
+
 from .forms import MusicoForm, GrupoForm, AlbumForm
 
 from .models import Musico, Grupo, Album
@@ -213,5 +215,15 @@ def delete_album(request, pk):
         instancia = Album.objects.get(id=pk)
         instancia.delete()
         return redirect('/aplicacion/albums')
+    else:
+        return redirect('/accounts/login')
+
+def estadisticas(request):
+    if request.user.is_authenticated:
+        lista = []
+        grupos = Grupo.objects.all()
+        for grupo in grupos:
+            lista.append([grupo.nombre, Album.objects.filter(grupo=grupo.id).count()])
+        return render(request, "estadisticas.html", {'estadisticas': json.dumps(lista)})
     else:
         return redirect('/accounts/login')
