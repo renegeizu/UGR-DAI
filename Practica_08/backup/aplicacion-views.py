@@ -35,7 +35,7 @@ def info_musicos(request):
         musicos = paginator.page(1)
     except EmptyPage:
         page = paginator.num_pages
-        musicos = paginator.page(pages)
+        musicos = paginator.page(page)
     musicos_html = loader.render_to_string('musico/tabla.html', {'musicos': musicos})
     output_data = {
         'musicos_html': musicos_html,
@@ -66,7 +66,7 @@ def info_grupos(request):
         grupos = paginator.page(1)
     except EmptyPage:
         page = paginator.num_pages
-        grupos = paginator.page(pages)
+        grupos = paginator.page(page)
     grupos_html = loader.render_to_string('grupo/tabla.html', {'grupos': grupos})
     output_data = {
         'grupos_html': grupos_html,
@@ -97,7 +97,7 @@ def info_albums(request):
         albums = paginator.page(1)
     except EmptyPage:
         page = paginator.num_pages
-        albums = paginator.page(pages)
+        albums = paginator.page(page)
     albums_html = loader.render_to_string('album/tabla.html', {'albums': albums})
     output_data = {
         'albums_html': albums_html,
