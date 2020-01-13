@@ -30,6 +30,10 @@
         window.CSRF_TOKEN = "{{ csrf_token }}";
         $(document).ready(function(){
             $('#anterior').hide();
+            var datos = '{{num_data}}';
+            if(datos <= 5) {
+                $('#siguiente').hide();
+            }
         });
         (function($) {
             $('#siguiente').on('click', function() {

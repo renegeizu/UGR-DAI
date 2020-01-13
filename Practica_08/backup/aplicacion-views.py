@@ -17,7 +17,7 @@ def index(request):
 def musicos(request):
     if request.user.is_authenticated:
         musicos = Musico.objects.all()[:5]
-        return render(request, "musico/list.html", {'musicos': musicos})
+        return render(request, "musico/list.html", {'musicos': musicos, 'num_data': Musico.objects.all().count()})
     else:
         return redirect('/accounts/login')
 
@@ -48,7 +48,7 @@ def info_musicos(request):
 def grupos(request):
     if request.user.is_authenticated:
         grupos = Grupo.objects.all()[:5]
-        return render(request, "grupo/list.html", {'grupos': grupos})
+        return render(request, "grupo/list.html", {'grupos': grupos, 'num_data': Grupo.objects.all().count()})
     else:
         return redirect('/accounts/login')
 
@@ -79,7 +79,7 @@ def info_grupos(request):
 def albums(request):
     if request.user.is_authenticated:
         albums = Album.objects.all()[:5]
-        return render(request, "album/list.html", {'albums': albums})
+        return render(request, "album/list.html", {'albums': albums, 'num_data': Album.objects.all().count()})
     else:
         return redirect('/accounts/login')
 
